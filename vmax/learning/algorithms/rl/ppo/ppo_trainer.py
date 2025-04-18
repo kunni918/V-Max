@@ -33,6 +33,7 @@ def train(
     num_scenario_per_eval: int,
     total_timesteps: int,
     num_envs: int,
+    num_eval_envs: int,
     num_episode_per_epoch: int,
     scenario_length: int,
     log_freq: int,

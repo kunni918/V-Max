@@ -4,7 +4,7 @@ hydra:
 
 defaults:
   - _self_
-  - algorithm: ???
+  - algorithm: 'ppo'
   - network: base
   - override hydra/job_logging: custom
 
@@ -15,22 +15,23 @@ cache_flag: false
 
 # Run config
 total_timesteps: 5_000_000
-num_envs: 16
+num_envs: 8
+num_eval_envs: 1
 num_episode_per_epoch: 4
-num_scenario_per_eval: 256
-scenario_length: 80
+num_scenario_per_eval: 1
+scenario_length: 40
 log_freq: 20
 save_freq: 100
-eval_freq: 0
+eval_freq: 100
 seed: 0
 name_run: null
 name_exp: null
 
 # Env config
-path_dataset: ???
-path_dataset_eval: null
+path_dataset: 'local_nuplan'
+path_dataset_eval: 'local_nuplan'
 waymo_dataset: false
-max_num_objects: 64
+max_num_objects: 16
 termination_keys: [offroad, overlap, run_red_light]
 
 # Reward config

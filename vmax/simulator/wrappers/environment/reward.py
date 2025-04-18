@@ -366,7 +366,7 @@ def _compute_off_route_reward(
     weight: float = 1.0,
 ):
     # Waymax offroute's score: 0 if you're on-route, distance to route if you're offroute
-    off_route_score = metrics.OffRouteMetric().compute(state).value
+    off_route_score = waymax_metrics.OffRouteMetric().compute(state).value
 
     return (off_route_score > 0) * weight * penalty
 

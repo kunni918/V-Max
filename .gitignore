@@ -5,3 +5,6 @@
 # Local data
 mini_datasets/
 
+.idea
+__pycache__/
+runs

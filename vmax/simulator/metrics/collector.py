@@ -72,7 +72,7 @@ def collect(metrics: dict, key_metric: str) -> dict:
 
         if not isinstance(operand, dict):
             episode_values = np.array([operand(l_metric) for l_metric in list_metric if len(l_metric) > 0])
-            episode_metrics[key] = np.mean(episode_values)
+            episode_metrics[_key] = np.mean(episode_values)
         else:
             for sub_key, sub_operand in operand.items():
                 episode_values = np.array([sub_operand(l_metric) for l_metric in list_metric if len(l_metric) > 0])
@@ -95,6 +95,6 @@ def _get_split_indices(steps: np.ndarray) -> np.ndarray:
 
     """
     indices = np.argwhere(steps == 1) - 1
-    indices = np.squeeze(indices) + 1
+    indices = np.squeeze(indices, axis=-1) + 1
 
     return indices

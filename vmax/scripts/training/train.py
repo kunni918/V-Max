@@ -4,6 +4,8 @@
 """Script to run the training process."""
 
 import os
+os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"]= "0.7"
+
 import sys
 from functools import partial
 
@@ -17,6 +19,7 @@ from vmax.scripts.training import train_utils
 
 
 OmegaConf.register_new_resolver("output_dir", train_utils.resolve_output_dir)
+
 
 
 @hydra.main(version_base=None, config_name="base_config", config_path=PATH_TO_APP + "/config")
@@ -45,12 +48,13 @@ def run(cfg: DictConfig) -> None:
         distributed=True,
     )
 
+    num_eval_envs = env_config["num_eval_envs"]
     if config["eval_freq"] > 0:
         eval_data_generator = simulator.make_data_generator(
             path=env_config["path_dataset_eval"],
             max_num_objects=env_config["max_num_objects"],
             include_sdc_paths=env_config["sdc_paths_from_data"],
-            batch_dims=(8, config["num_scenario_per_eval"] // 8),
+            batch_dims=(num_eval_envs, env_config["num_scenario_per_eval"] // num_eval_envs),
             seed=69,
             distributed=True,
         )
